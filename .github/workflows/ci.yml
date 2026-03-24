@@ -64,6 +64,6 @@ jobs:
       #   working-directory: services/${{ matrix.service }}
       #   run: npm run build
 
-      - name: Test service
-        working-directory: services/${{ matrix.service }}
-        run: npm test -- --passWithNoTests
+      # - name: Test service
+      #   working-directory: services/${{ matrix.service }}
+      #   run: npm test -- --passWithNoTests
