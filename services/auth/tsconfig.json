@@ -4,8 +4,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "strict": true,
     "resolveJsonModule": true,
     "sourceMap": true,
@@ -25,6 +27,6 @@
     },
     "types": ["node"]
   },
-  "include": ["src"],
+  "include": ["src", "../../libs"],
   "exclude": ["node_modules", "dist", "tests"]
 }
