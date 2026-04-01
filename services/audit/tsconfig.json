@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
     "outDir": "dist",
     "baseUrl": ".",
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noEmit": false,
     "strict": true,
     "resolveJsonModule": true,
     "sourceMap": true,
@@ -27,6 +25,6 @@
     },
     "types": ["node"]
   },
-  "include": ["src"],
+  "include": ["src/**/*", "../../libs/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
 }

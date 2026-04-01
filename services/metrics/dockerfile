@@ -2,14 +2,18 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-COPY prisma ./prisma
-COPY src ./src
+COPY libs ./libs
+
+WORKDIR /app/services/metrics
+
+COPY services/metrics/package*.json ./
+COPY services/metrics/tsconfig.json ./
+COPY services/metrics/prisma ./prisma
+
 RUN npm install
 RUN npx prisma generate
 
-COPY . .
+COPY services/metrics/src ./src
+COPY services/metrics/. .
 
-RUN npm run build
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "go"]

@@ -7,11 +7,10 @@
     "Artem_Zhyto <https://github.com/ArtemZhyto>"
   ],
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "nodemon",
     "build": "tsc -p tsconfig.json && tsc-alias",
-    "start": "node dist/server.js",
+    "start": "node dist/services/auth/src/server.js",
     "test": "jest --verbose",
     "go": "npm run build && npm run start"
   },

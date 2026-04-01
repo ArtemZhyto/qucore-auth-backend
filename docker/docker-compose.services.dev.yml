@@ -1,0 +1,101 @@
+services:
+  audit:
+    build:
+      context: ../
+      dockerfile: services/audit/dockerfile
+    volumes:
+      - ../services/audit/src:/app/services/audit/src
+      - ../services/audit/package.json:/app/services/audit/package.json
+      - ../services/audit/package-lock.json:/app/services/audit/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${AUDIT_SERVICE}:${AUDIT_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+  auth:
+    build:
+      context: ../
+      dockerfile: services/auth/dockerfile
+    volumes:
+      - ../services/auth/src:/app/services/auth/src
+      - ../services/auth/package.json:/app/services/auth/package.json
+      - ../services/auth/package-lock.json:/app/services/auth/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${AUTH_SERVICE}:${AUTH_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+  invite:
+    build:
+      context: ../
+      dockerfile: services/invite/dockerfile
+    volumes:
+      - ../services/invite/src:/app/services/invite/src
+      - ../services/invite/package.json:/app/services/invite/package.json
+      - ../services/invite/package-lock.json:/app/services/invite/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${INVITE_SERVICE}:${INVITE_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+  metrics:
+    build:
+      context: ../
+      dockerfile: services/metrics/dockerfile
+    volumes:
+      - ../services/metrics/src:/app/services/metrics/src
+      - ../services/metrics/package.json:/app/services/metrics/package.json
+      - ../services/metrics/package-lock.json:/app/services/metrics/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${METRICS_SERVICE}:${METRICS_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+  org:
+    build:
+      context: ../
+      dockerfile: services/org/dockerfile
+    volumes:
+      - ../services/org/src:/app/services/org/src
+      - ../services/org/package.json:/app/services/org/package.json
+      - ../services/org/package-lock.json:/app/services/org/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${ORG_SERVICE}:${ORG_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+  users:
+    build:
+      context: ../
+      dockerfile: services/users/dockerfile
+    volumes:
+      - ../services/users/src:/app/services/users/src
+      - ../services/users/package.json:/app/services/users/package.json
+      - ../services/users/package-lock.json:/app/services/users/package-lock.json
+      - ../libs:/app/libs
+    command: npm run dev # Use dev for hot-reloading during development
+    ports:
+      - '${USERS_SERVICE}:${USERS_SERVICE}'
+    env_file:
+      - .env
+    networks: [app-network]
+
+networks:
+  app-network:
+    external: true
+    name: qucore_auth_network
