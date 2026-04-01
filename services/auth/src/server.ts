@@ -2,6 +2,9 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 
+// Libs
+import generateRequestID from '@libs/generators/rayGenerator.generator'
+
 // Router
 import router from '@routes/router'
 
@@ -9,21 +12,23 @@ import router from '@routes/router'
 import { __PORT } from './config'
 
 const app = express()
+const cookiesSecret = process.env.COOKIES_SECRET
+
+if (!cookiesSecret) throw new Error('❌ FATAL: COOKIES_SECRET not found')
 
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser(cookiesSecret))
 
 app.use('/auth/v1', router)
 
 app.use((req, res) => {
+  const rayID = generateRequestID()
+
   res.status(404).json({
-    error: {
-      code: 'ROUTE_NOT_FOUND',
-      details: {
-        timestamp: new Date().toISOString(),
-        path: req.originalUrl,
-        method: req.method,
-      },
+    code: 'ROUTE_NOT_FOUND',
+    details: {
+      timestamp: new Date().toISOString(),
+      rayID,
     },
   })
 })

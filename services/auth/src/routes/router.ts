@@ -12,7 +12,7 @@ import { commonLogoutHandler } from '@controllers/common-logout.controller'
 
 const authRouter = Router()
 
-authRouter.get('/regist', registHandler)
+authRouter.post('/regist', registHandler)
 authRouter.get('/login', loginHandler)
 authRouter.get('/update', updateHandler)
 authRouter.get('/delete', deleteHandler)

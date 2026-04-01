@@ -1,10 +1,49 @@
+// Configs
+import { cookieOptions } from 'src/config'
+
+// Libs
+import generateRequestID from '@libs/generators/rayGenerator.generator'
+
+// Services
+import { registService } from '@services/regist.service'
+
 // Types
 import { Request, Response } from 'express'
 
 export const registHandler = (req: Request, res: Response) => {
-  //TODO: 1. First, check if the user currently doesn't have access to the site. If so, send a redirect to the profile.
-  //TODO: 2. Check if the user is registered via tokens. If so, send a redirect to the login.
-  //TODO: 3. Validate all data
-  //TODO: 4. Call the registration service
-  //TODO: 5. Error handling
+  const rayID = generateRequestID()
+  const { refreshToken: oldRefreshToken, accessToken: oldAccessToken } = req.cookies
+
+  if (oldRefreshToken || oldAccessToken) {
+    return res.status(403).json({
+      code: 'ALREADY_REGISTERED',
+      details: {
+        timestamp: new Date().toISOString(),
+        rayID,
+      },
+    })
+  }
+
+  try {
+    //TODO: Call the registration service
+    const data = registService()
+
+    return res.status(200).json({
+      code: 'OK',
+      details: {
+        timestamp: new Date().toISOString(),
+        rayID,
+      },
+    })
+    // .cookie('refreshToken', data.refreshToken, {
+    //   ...cookieOptions,
+    //   maxAge: Number(process.env.REFRESH_AGE),
+    // })
+    // .cookie('accessToken', data.accessToken, {
+    //   ...cookieOptions,
+    //   maxAge: Number(process.env.ACCESS_AGE),
+    // })
+  } catch (err) {
+    //TODO: Error handling
+  }
 }

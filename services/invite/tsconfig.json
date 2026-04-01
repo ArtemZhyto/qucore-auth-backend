@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "target": "ES2022",
     "module": "CommonJS",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "noEmit": false,
     "strict": true,
     "resolveJsonModule": true,
@@ -13,6 +13,7 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types"],
     "paths": {
       "@controllers/*": ["src/controllers/*"],
       "@mails/*": ["src/mails/*"],
@@ -21,10 +22,10 @@
       "@routes/*": ["src/routes/*"],
       "@services/*": ["src/services/*"],
       "@sockets/*": ["src/sockets/*"],
+      "@ts/*": ["ts/*"],
       "@libs/*": ["../../libs/*"]
-    },
-    "types": ["node"]
+    }
   },
-  "include": ["src/**/*", "../../libs/**/*"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "include": ["src/**/*", "../../libs/**/*", "ts", "tests"],
+  "exclude": ["node_modules", "dist"]
 }
