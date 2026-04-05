@@ -3,6 +3,15 @@ export interface Tokens {
   accessToken: string
 }
 
-export interface RefreshToken {}
+export interface RefreshToken {
+  sessionID: string
+  userID: string
+  role: string
+  version: string
+}
 
-export interface AccessToken {}
+export interface AccessToken {
+  userID: string
+  role: string
+  version: string
+}

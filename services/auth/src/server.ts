@@ -1,15 +1,18 @@
+// Configs
+import { __PORT } from './config'
+
 // Modules
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 
 // Libs
-import generateRequestID from '@libs/generators/rayGenerator.generator'
+import { generateRequestID } from '@qucore-dynamic/packages'
 
 // Router
-import router from '@routes/router'
+import routerV1_0_0 from '@routes/v1.0.0/router'
 
-// Configs
-import { __PORT } from './config'
+// Interfaces
+import AppError from '@ts/interfaces/error.interface'
 
 const app = express()
 const cookiesSecret = process.env.COOKIES_SECRET
@@ -19,7 +22,7 @@ if (!cookiesSecret) throw new Error('❌ FATAL: COOKIES_SECRET not found')
 app.use(express.json())
 app.use(cookieParser(cookiesSecret))
 
-app.use('/v1', router)
+app.use('/v1.0.0', routerV1_0_0)
 
 app.use((req, res) => {
   const rayID = generateRequestID()
@@ -30,9 +33,31 @@ app.use((req, res) => {
       timestamp: new Date().toISOString(),
       rayID,
     },
-  })
+  } as AppError)
+})
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err && typeof err === 'object' && 'code' in err && 'details' in err) {
+    return res.status(err.status).json({
+      code: err.code,
+      message: err.message,
+      details: {
+        timestamp: err.details.timestamp,
+        rayID: err.details.rayID,
+      },
+    } as AppError)
+  }
+
+  return res.status(500).json({
+    code: 'INTERNAL_ERROR',
+    message: 'Server crashed. Wait some time',
+    details: {
+      timestamp: new Date().toISOString(),
+      rayID: generateRequestID(),
+    },
+  } as AppError)
 })
 
 app.listen(__PORT, () => {
-  console.log(`Auth service starder on :${__PORT}`)
+  console.log(`Auth service started on :${__PORT}`)
 })

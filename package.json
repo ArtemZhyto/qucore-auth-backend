@@ -8,12 +8,12 @@
   ],
   "license": "GPL-3.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "i:all": "npm i & npm i --prefix services/auth & npm i --prefix services/audit & npm i --prefix services/invite & npm i --prefix services/metrics & npm i --prefix services/org & npm i --prefix services/users"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
