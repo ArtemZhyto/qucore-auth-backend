@@ -1,15 +1,3 @@
-// Types
-import { CookieOptions } from '@ts/types/cookie.type'
-
-export interface SendResponseOptions<T> {
-  status?: number
-  code?: string
-  message?: string
-  data?: T
-  cookies?: CookieOptions[]
-  headers?: Record<string, string>
-}
-
 export default interface AppResponse<T = any> {
   code?: string
   message?: string
