@@ -1,15 +1,12 @@
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: infra_postgres
+    container_name: postgres
     restart: always
-    env_file: .env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - .env.prod
     ports:
-      - '5432:5432'
+      - '${POSTGRES_PORT}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -17,11 +14,12 @@ services:
 
   redis:
     image: redis:8-alpine
-    container_name: infra_redis
+    container_name: redis
     restart: always
-    env_file: .env
+    env_file:
+      - .env.prod
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:6379'
     volumes:
       - redis_data:/data
     networks:

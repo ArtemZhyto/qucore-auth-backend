@@ -11,6 +11,6 @@ export const cookieOptions = {
   httpOnly: true,
   sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
   secure: isProd,
-  ...(isProd && { domain: '.qucore.io' }),
+  ...(isProd && { domain: process.env.DOMAIN || '.qucore.io' }),
   signed: true,
 }

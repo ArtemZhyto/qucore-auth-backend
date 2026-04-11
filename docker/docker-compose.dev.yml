@@ -9,13 +9,12 @@ services:
       - ../services/audit/package-lock.json:/app/services/audit/package-lock.json
       - /app/node_modules
       - /app/dist
-      - /app/node_modules
-      - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${AUDIT_SERVICE}:${AUDIT_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${AUDIT_SERVICE}:${AUDIT_SERVICE}'
     networks: [app-network]
 
   auth:
@@ -29,10 +28,11 @@ services:
       - /app/node_modules
       - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${AUTH_SERVICE}:${AUTH_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${AUTH_SERVICE}:${AUTH_SERVICE}'
     networks: [app-network]
 
   invite:
@@ -46,10 +46,11 @@ services:
       - /app/node_modules
       - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${INVITE_SERVICE}:${INVITE_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${INVITE_SERVICE}:${INVITE_SERVICE}'
     networks: [app-network]
 
   metrics:
@@ -63,10 +64,11 @@ services:
       - /app/node_modules
       - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${METRICS_SERVICE}:${METRICS_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${METRICS_SERVICE}:${METRICS_SERVICE}'
     networks: [app-network]
 
   org:
@@ -80,10 +82,11 @@ services:
       - /app/node_modules
       - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${ORG_SERVICE}:${ORG_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${ORG_SERVICE}:${ORG_SERVICE}'
     networks: [app-network]
 
   users:
@@ -97,10 +100,11 @@ services:
       - /app/node_modules
       - /app/dist
     command: npm run dev # Use dev for hot-reloading during development
-    ports:
-      - '${USERS_SERVICE}:${USERS_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${USERS_SERVICE}:${USERS_SERVICE}'
     networks: [app-network]
 
 networks:

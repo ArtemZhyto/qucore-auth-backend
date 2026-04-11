@@ -1,43 +1,76 @@
 # QuCore Dynamic Auth (ATH)
 
-**Centralized authentication and authorization service for the QuCore ecosystem. Provides SSO (Single Sign-On) and RBAC (Role-Based Access Control) across all corporate platforms.**
+**Centralized authentication and authorization engine for the QuCore ecosystem. Provides SSO (Single Sign-On) and RBAC (Role-Based Access Control) across all corporate platforms via a microservices architecture.**
 
 ## Tech Stack
 
-- **Backend**: Node.js + Express.js (TypeScript)
-- **Frontend**: Next.js (TypeScript)
+- **Runtime**: Node.js 22+ (TypeScript)
+- **Framework**: Express.js (Microservices)
 - **Database**: PostgreSQL + Prisma ORM
-- **Security**: JWT, Helmet, CORS
+- **Style**: No Semicolons, Single Quotes, PascalCase for Models
+- **Real-time**: Socket.io
 
-## Core Features
+---
 
-- **Identity Management**: Secure user registration and profile storage
-- **Access Control**: Role-based permissions
-- **Corporate Security**: 16-symbol access code required for registration
-- **Session Management**: JWT tokens with device fingerprinting (IP + User Agent)
-- **SSO Ready**: Single sign-on across all QuCore services
+## Configuration & Placeholders
 
-## Quick Start
+This module requires a dual-block configuration strategy. Before running, ensure you have replaced these placeholders in your configuration files to match your infrastructure settings.
+
+---
+
+## Installation & Setup
+
+### 1. Environment Configuration
+
+Create your configuration files and follow the internal instructions for BLOCK #1 (Local) and BLOCK #2 (Docker Overrides) in the `docker/` directory.
 
 ```bash
-# Clone repository
-git clone https://github.com/qucore-dynamic/qucore-auth-backend.git
-cd qucore-auth-backend
+# Setup local environment
+cd docker && cp .env.example .env
 
-# Install dependencies
-npm install
-
-# Set up environment
-cp .env.example .env
-# Edit .env with your database credentials
-
-# Run database migrations
-npx prisma migrate dev --name init
-
-# Start development server
-npm run dev
+# Setup production/docker environment
+cp .env.example .env.prod
 ```
 
-## License
+### 3. Docker Execution
 
-**GNU General Public License v3.0** - See [LICENSE](./LICENSE) file for details.
+The backend supports containerized environments for consistent development and production parity across all services.
+
+```bash
+# Start infrastructure and services in dev mode (with hot-reload)
+cd docker
+docker-compose -f docker-compose.infra.yml -f docker-compose.dev.yml up -d --build
+
+# Run in production mode
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+## Project Structure
+
+A brief overview of the key directories in the **QuCore Auth** backend ecosystem:
+
+- **`docker/`**: Infrastructure orchestration (Compose files, networking, and env templates).
+- **`services/auth/`**: Core JWT logic, login, registration, and session control.
+- **`services/users/`**: Identity management and detailed user profile data.
+- **`services/invite/`**: 16-symbol registration codes and access validation.
+- **`services/audit/`**: Security event logging and real-time event tracking.
+- **`services/[name]/prisma/`**: Data models and migration history per service.
+
+---
+
+## Contributing
+
+We follow the **QuCore Elite** standard for backend engineering:
+
+1. **Linting**: No semicolons, single quotes for logic, backticks for templates.
+2. **Naming**: PascalCase for Prisma Models, camelCase for functions/variables.
+3. **API**: Every route must follow strict versioning (e.g., `/v1.0.0/`).
+
+## License & Authorship
+
+Created and maintained by **Artem Zhytovoz**.
+Distributed under the **GNU GPL v3** license.
+
+---
+
+_Every line of code is a step toward global technological leverage._

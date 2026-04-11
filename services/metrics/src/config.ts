@@ -2,7 +2,10 @@
 import path from 'path'
 import dotenv from 'dotenv'
 
-dotenv.config({ path: path.resolve(process.cwd(), '../../docker/.env') })
+const envPath = (file: string) => path.resolve(process.cwd(), `../../${file}`)
+
+dotenv.config({ path: envPath('.env') })
+dotenv.config({ path: envPath('.env.prod'), override: true })
 
 const isProd = process.env.MODE === 'prod'
 
@@ -11,5 +14,5 @@ export const cookieOptions = {
   httpOnly: true,
   sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
   secure: isProd,
-  ...(isProd && { domain: '.qucore.io' }),
+  ...(isProd && { domain: process.env.DOMAIN }),
 }

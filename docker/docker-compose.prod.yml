@@ -3,60 +3,66 @@ services:
     build:
       context: ../
       dockerfile: services/audit/dockerfile
-    ports:
-      - '${AUDIT_SERVICE}:${AUDIT_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${AUDIT_SERVICE}:${AUDIT_SERVICE}'
     networks: [app-network]
 
   auth:
     build:
       context: ../
       dockerfile: services/auth/dockerfile
-    ports:
-      - '${AUTH_SERVICE}:${AUTH_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${AUTH_SERVICE}:${AUTH_SERVICE}'
     networks: [app-network]
 
   invite:
     build:
       context: ../
       dockerfile: services/invite/dockerfile
-    ports:
-      - '${INVITE_SERVICE}:${INVITE_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${INVITE_SERVICE}:${INVITE_SERVICE}'
     networks: [app-network]
 
   metrics:
     build:
       context: ../
       dockerfile: services/metrics/dockerfile
-    ports:
-      - '${METRICS_SERVICE}:${METRICS_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${METRICS_SERVICE}:${METRICS_SERVICE}'
     networks: [app-network]
 
   org:
     build:
       context: ../
       dockerfile: services/org/dockerfile
-    ports:
-      - '${ORG_SERVICE}:${ORG_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${ORG_SERVICE}:${ORG_SERVICE}'
     networks: [app-network]
 
   users:
     build:
       context: ../
       dockerfile: services/users/dockerfile
-    ports:
-      - '${USERS_SERVICE}:${USERS_SERVICE}'
     env_file:
       - .env
+      - .env.prod
+    ports:
+      - '${USERS_SERVICE}:${USERS_SERVICE}'
     networks: [app-network]
 
 networks:
